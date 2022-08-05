@@ -9,6 +9,7 @@
 import sys
 import datetime
 import uuid
+from models import storage
 
 class BaseModel(object):
     """
@@ -62,6 +63,8 @@ class BaseModel(object):
             self.name = None
             self.my_number = None
 
+        storage.new(self.to_dict())
+
 
     def __str__(self):
         """
@@ -77,7 +80,7 @@ class BaseModel(object):
         Return a dictionary containing all instance variables plus the class name
         """
         dictionary = self.__dict__
-        dictionary["__class__"] = self.__class__
+        dictionary[self.__class__] = self.__class__
         dictionary["created_at"] = dictionary["created_at"].strftime("%Y-%m-%dT%H:%M:%S.%f")
         dictionary["updated_at"] = dictionary["updated_at"].strftime("%Y-%m-%dT%H:%M:%S.%f")
 
@@ -86,5 +89,6 @@ class BaseModel(object):
     def save(self):
         """ Updates the updated_at variable with the current time """
 
+        storage.save()
         self.updated_at = datetime.datetime.now()
 
