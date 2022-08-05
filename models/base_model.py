@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 """
-    This module contains the base class which will be inherited by 
+    This module provides the base class which will be inherited by
     future classes 
 
     The module holds one class
@@ -43,22 +43,22 @@ class BaseModel(object):
         **kwargs: dictionary
         """
 
-        if kwargs is not None:
-            for key value in kwargs.items():
-                if key == name:
+        if kwargs:
+            for key, value in kwargs.items():
+                if (key == "name"):
                     self.name = value
-                else if key == my_number:
+                elif (key == "my_number"):
                     self.my_number = value
-                else if key == created_at:
+                elif (key == "created_at"):
                     self.created_at = datetime.datetime(value)
-                else if key == updated_at:
+                elif (key == "updated_at"):
                     self.updated_at = datetime.datetime(value)
-                else if key == id:
+                elif (key == "id"):
                     self.id = value
         else:
             self.id = uuid.uuid4()
-            self.created_at = datetime.datetime.now().strftime("%")
-            self.updated_at = datetime.datetime.now().strftime("%")
+            self.created_at = datetime.datetime.now()
+            self.updated_at = datetime.datetime.now()
             self.name = None
             self.my_number = None
 
@@ -76,7 +76,7 @@ class BaseModel(object):
         """
         Return a dictionary containing all instance variables plus the class name
         """
-        dictionary = self.__dict__()
+        dictionary = self.__dict__
         dictionary["__class__"] = self.__class__
         dictionary["created_at"] = dictionary["created_at"].strftime("%Y-%m-%dT%H:%M:%S.%f")
         dictionary["updated_at"] = dictionary["updated_at"].strftime("%Y-%m-%dT%H:%M:%S.%f")
