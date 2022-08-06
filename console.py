@@ -39,22 +39,23 @@ class HBNBCommand(cmd.Cmd):
     prompt = "(hbnb)"
 
     def do_quit(self, arg):
-        """ closes/exits the command line interface """
-
+        """ closes/exits the command line interface
+        """
         return True
 
     def do_EOF(self, arg):
-        """ Exits the command interface when supplied with EOF character"""
-
+        """ Exits the command interface when supplied with EOF character
+        """
         return True
+   
     def emptyline(self):
-        """ Do nothing"""
-
+        """ Do nothing
+        """
         pass
 
     def do_create(self, arg):
-        """Creates an instance of the class specified in the arg var"""
-
+        """Creates an instance of the class specified in the arg var
+        """
         if not arg:
             print("** class name missing **")
             return
@@ -67,8 +68,8 @@ class HBNBCommand(cmd.Cmd):
             print(my_model.id)
 
     def do_show(self, arg)
-        """ Prints and instance based on the id and class name"""
-
+        """ Prints and instance based on the id and class name
+        """
         objs = storage.all()
         args = arg.split()
         if len(args) < 1:
@@ -83,7 +84,8 @@ class HBNBCommand(cmd.Cmd):
                 print("** no instance found **")
 
     def do_destory(self, arg):
-        """ destorys an instance object"""
+        """ destorys an instance object
+        """
         if not args:
             print("** class name is missing **")
         args = arg.split()
@@ -101,7 +103,8 @@ class HBNBCommand(cmd.Cmd):
             else:
                 del objs[id]
     def do_all(self, args):
-        """Prints all the instances of arg"""
+        """Prints all the instances of arg
+        """
 
         objs = storage.all()
         print(objs)
