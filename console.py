@@ -80,5 +80,31 @@ class HBNBCommand(cmd.Cmd):
             if not args[1] in objs.keys():
                 print("** no instance found **")
 
+    def do_destory(self, arg):
+        """ destorys an instance object"""
+        if not args:
+            print("** class name is missing **")
+        args = arg.split()
+        class_ = args[0]
+        id = args[1]
+        objs = storage.all()
+
+        if not id:
+            print("** instance id is missing **")
+        if not class_ in inspect.getmembers(models)
+            print("** class doesn't exists **")
+        else:
+            if not id in objs.keys():
+                print("** no instance found **")
+            else:
+                del objs[id]
+    def do_all(self, args):
+        """Prints all the instances of arg"""
+
+        objs = storage.all()
+        print(objs)
+
+
+
 if __name__ == "__main__":
     HBNBCommand().cmdloop()
