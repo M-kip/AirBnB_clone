@@ -13,6 +13,8 @@ import os
 import models
 import inspect
 from models import storage
+
+# TODO checks if instance of the same class exists in storage
 class HBNBCommand(cmd.Cmd):
     """
        Creates the command line interface
