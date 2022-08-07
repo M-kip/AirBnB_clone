@@ -38,19 +38,22 @@ class FileStorage:
 
         return FileStorage.__objects
 
-    def new(self, obj):
-        """ Sets obj in __objects with the key <obj class name>.id """
+   def new(self, obj):
+       """ Sets obj in __objects with the key <obj class name>.id
+       """
 
         FileStorage.__objects[obj["id"]] = obj
 
-    def save(self):
-        """ Serializes obj to JSON  and save to file"""
+   def save(self):
+       """ Serializes obj to JSON  and save to file
+       """
 
         with open(FileStorage.__file_path, "w") as file_json:
             json.dump(FileStorage.__objects, file_json)
 
-    def reload(self):
-        """ Deserializes JSON file back to obj"""
+   def reload(self):
+       """ Deserializes JSON file back to obj
+       """
 
         if FileStorage.__file_path:
             with open(FileStorage.__file_path, "r") as json_file:

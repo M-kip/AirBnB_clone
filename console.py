@@ -67,8 +67,8 @@ class HBNBCommand(cmd.Cmd):
             print(my_model.id)
 
     def do_show(self, arg):
-        """ Prints and instance based on the id and class name
-        """
+        """ Prints and instance based on the id and class name"""
+        
         objs = storage.all()
         args = arg.split()
         if len(args) < 1:
@@ -108,6 +108,7 @@ class HBNBCommand(cmd.Cmd):
         objs = storage.all()
         print(objs)
          
+
     def do_update(self, line):
         """Updates an instance by adding or updating attribute.
         """
@@ -154,7 +155,6 @@ class HBNBCommand(cmd.Cmd):
                         pass  # fine, stay a string then
                 setattr(storage.all()[key], attribute, value)
                 storage.all()[key].save()
-
 
 if __name__ == "__main__":
     HBNBCommand().cmdloop()
