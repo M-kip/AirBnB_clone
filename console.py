@@ -94,7 +94,7 @@ class HBNBCommand(cmd.Cmd):
 
         if not id:
             print("** instance id is missing **")
-        if not class_ in inspect.getmembers(models)
+        if not class_ in inspect.getmembers(models):
             print("** class doesn't exists **")
         else:
             if not id in objs.keys():

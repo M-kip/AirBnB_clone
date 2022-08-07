@@ -30,7 +30,7 @@ class FileStorage:
             deserializes the JSON file to __objects
     """
 
-    __file_path = path
+    __file_path = ""
     __objects = {}
 
     def all(self):
