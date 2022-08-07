@@ -2,5 +2,5 @@
 """ Initializes the module"""
 from models.engine import file_storage
 
-storage = file_storage.FileStorage(path="json.json")
+storage = file_storage.FileStorage()
 storage.reload()
