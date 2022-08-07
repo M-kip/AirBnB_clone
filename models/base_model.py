@@ -1,7 +1,8 @@
 #!/usr/bin/python3
 """
     This module provides the base class which will be inherited by
-    future classes 
+    future classes
+
 
     The module holds one class
       BaseModel:
@@ -10,6 +11,7 @@ import sys
 import datetime
 import uuid
 from models import storage
+
 
 class BaseModel(object):
     """
@@ -23,7 +25,7 @@ class BaseModel(object):
         time when instance was created
     updated_at: datetime
         assign the time when instance was created
-    
+
     Methods
     -------
     __str__(self)
@@ -31,7 +33,8 @@ class BaseModel(object):
     save(self)
         Updates the public instance attribute updated_at with current datetime
     to_dict(self)
-        Returns dictionary containing all the keys/values of __dict__ of the instance
+        Returns dictionary containing all the
+        keys/values of __dict__ of the instance
 
 """
 
@@ -65,7 +68,6 @@ class BaseModel(object):
 
         storage.new(self.to_dict())
 
-
     def __str__(self):
         """
         Parameters
@@ -73,16 +75,18 @@ class BaseModel(object):
         self: instance
            The current instance
         """
-        return f"(<{self.__class__}> ({self.id}) <{self.__dict__}>)"
+        return f"{self.__class__} ({self.id}) {self.__dict__}"
 
     def to_dict(self):
         """
-        Return a dictionary containing all instance variables plus the class name
+        Return a dictionary containing all instance variables & class name
         """
         dictionary = self.__dict__
         dictionary[self.__class__] = self.__class__
-        dictionary["created_at"] = dictionary["created_at"].strftime("%Y-%m-%dT%H:%M:%S.%f")
-        dictionary["updated_at"] = dictionary["updated_at"].strftime("%Y-%m-%dT%H:%M:%S.%f")
+        created_at = dictionary["created_at"].strftime("%Y-%m-%dT%H:%M:%S.%f")
+        updated_at = dictionary["updated_at"].strftime("%Y-%m-%dT%H:%M:%S.%f")
+        dictionary["created_at"] = created_at
+        dictionary["updated_at"] = updated_at
 
         return dictionary
 
@@ -91,4 +95,3 @@ class BaseModel(object):
 
         storage.save()
         self.updated_at = datetime.datetime.now()
-
