@@ -93,6 +93,6 @@ class BaseModel(object):
     def save(self):
         """ Updates the updated_at variable with the current time
         """
-        
+
         storage.save()
         self.updated_at = datetime.datetime.now()
