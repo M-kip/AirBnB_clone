@@ -1,4 +1,6 @@
 #!/usr/bin/python3
+""" test module for base model save method"""
+
 from models import storage
 from models.base_model import BaseModel
 
