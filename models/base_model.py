@@ -80,16 +80,14 @@ class BaseModel(object):
         """
         Return a dictionary containing all instance variables & class name
         """
-        dictionary = self.__dict__
+        dictionary = self.__dict__.copy()
         if dictionary:
             dictionary["__class__"] = self.__class__.__name__
             dictionary["id"] = str(dictionary["id"])
-            if not isinstance(dictionary["created_at"], str):
-                created_at = dictionary["created_at"].strftime("%Y-%m-%dT%H:%M:%S.%f")
-                dictionary["created_at"] = created_at
-            if not isinstance(dictionary["updated_at"], str):
-                updated_at = dictionary["updated_at"].strftime("%Y-%m-%dT%H:%M:%S.%f")
-                dictionary["updated_at"] = updated_at
+            created_at = dictionary["created_at"].strftime("%Y-%m-%dT%H:%M:%S.%f")
+            dictionary["created_at"] = created_at
+            updated_at = dictionary["updated_at"].strftime("%Y-%m-%dT%H:%M:%S.%f")
+            dictionary["updated_at"] = updated_at
 
         return dictionary
 
