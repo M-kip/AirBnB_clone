@@ -54,19 +54,18 @@ class BaseModel(object):
                 elif (key == "my_number"):
                     self.my_number = value
                 elif (key == "created_at"):
-                    self.created_at = datetime.datetime(value)
+                    self.created_at = datetime.datetime.fromisoformat(value)
                 elif (key == "updated_at"):
-                    self.updated_at = datetime.datetime(value)
+                    self.updated_at = datetime.datetime.fromisoformat(value)
                 elif (key == "id"):
-                    self.id = value
+                    self.id = uuid.UUID(value)
         else:
             self.id = uuid.uuid4()
             self.created_at = datetime.datetime.now()
             self.updated_at = datetime.datetime.now()
-            self.name = None
-            self.my_number = None
-
-        storage.new(self.to_dict())
+            self.name = ""
+            self.my_number = ""
+            storage.new(self.to_dict())
 
     def __str__(self):
         """
@@ -82,11 +81,15 @@ class BaseModel(object):
         Return a dictionary containing all instance variables & class name
         """
         dictionary = self.__dict__
-        dictionary[self.__class__] = self.__class__
-        created_at = dictionary["created_at"].strftime("%Y-%m-%dT%H:%M:%S.%f")
-        updated_at = dictionary["updated_at"].strftime("%Y-%m-%dT%H:%M:%S.%f")
-        dictionary["created_at"] = created_at
-        dictionary["updated_at"] = updated_at
+        if dictionary:
+            dictionary[self.__class__.__name__] = self.__class__.__name__
+            dictionary["id"] = str(dictionary["id"])
+            if not isinstance(dictionary["created_at"], str):
+                created_at = dictionary["created_at"].strftime("%Y-%m-%dT%H:%M:%S.%f")
+                dictionary["created_at"] = created_at
+            if not isinstance(dictionary["updated_at"], str):
+                updated_at = dictionary["updated_at"].strftime("%Y-%m-%dT%H:%M:%S.%f")
+                dictionary["updated_at"] = updated_at
 
         return dictionary
 
