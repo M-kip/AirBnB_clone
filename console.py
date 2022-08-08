@@ -69,7 +69,7 @@ class HBNBCommand(cmd.Cmd):
             print("** class doesn't exist **")
             return
         else:
-            my_model = models.base_model.BaseModel()
+            my_model = classes[arg]()
             my_model.save()
             print(my_model.id)
 
@@ -103,10 +103,10 @@ class HBNBCommand(cmd.Cmd):
             return
         args = arg.split()
         class_ = args[0]
-        id = args[1]
+        id_ = args[1]
         objs = storage.all()
-        key = class_ + "." + id
-        if not id:
+        key = class_ + "." + id_
+        if not id_:
             print("** instance id is missing **")
             return
         if class_ not in classes.keys():
