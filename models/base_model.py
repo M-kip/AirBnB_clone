@@ -74,7 +74,7 @@ class BaseModel(object):
         self: instance
            The current instance
         """
-        return f"{self.__class__} ({self.id}) {self.__dict__}"
+        return f"[{self.__class__}] ({self.id}) {self.__dict__}"
 
     def to_dict(self):
         """
@@ -82,7 +82,7 @@ class BaseModel(object):
         """
         dictionary = self.__dict__
         if dictionary:
-            dictionary[self.__class__.__name__] = self.__class__.__name__
+            dictionary["__class__"] = self.__class__.__name__
             dictionary["id"] = str(dictionary["id"])
             if not isinstance(dictionary["created_at"], str):
                 created_at = dictionary["created_at"].strftime("%Y-%m-%dT%H:%M:%S.%f")
