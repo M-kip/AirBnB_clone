@@ -38,6 +38,9 @@ class BaseModel(object):
 
 """
 
+    email = ""
+    my_number = ""
+
     def __init__(self, *args, **kwargs):
         """
         Parameters
@@ -63,8 +66,6 @@ class BaseModel(object):
             self.id = uuid.uuid4()
             self.created_at = datetime.datetime.now()
             self.updated_at = datetime.datetime.now()
-            self.name = ""
-            self.my_number = ""
             storage.new(self.to_dict())
 
     def __str__(self):
