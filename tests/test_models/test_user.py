@@ -17,6 +17,7 @@ from models.base_model import BaseModel
 from models.user import User
 from models import user
 
+
 class TestUserDocs(unittest.TestCase):
     """
     Runs Doc string and pycodestyle checks
@@ -40,7 +41,7 @@ class TestUserDocs(unittest.TestCase):
         """
         Checks for PEP 8 compliance
         """
-        style = pycodestyle.Checker("models/user.py", show_source = True)
+        style = pycodestyle.Checker("models/user.py", show_source=True)
         results = style.check_all()
         self.assertEqual(results, 0, "Found PEP 8 Warnings")
 
@@ -48,7 +49,8 @@ class TestUserDocs(unittest.TestCase):
         """
         Checks for PEP 8 compliance
         """
-        style = pycodestyle.Checker("tests/test_models/test_user.py", show_source = True)
+        style = pycodestyle.Checker("tests/test_models/test_user.py",
+                                    show_source=True)
         results = style.check_all()
         self.assertEqual(results, 0, "Found PEP 8 Warnings")
 
@@ -62,7 +64,8 @@ class TestUserDocs(unittest.TestCase):
         """ Tests if the class doc string exists"""
 
         self.assertIsNot(User.__doc__, None, "BaseModel class needs doc str")
-        self.assertTrue(len(User.__doc__) >= 1, "BaseModel class needs doc str")
+        self.assertTrue(len(User.__doc__) >= 1,
+                        "BaseModel class needs doc str")
 
 
 if __name__ == "__main__":

@@ -8,6 +8,7 @@ import pycodestyle
 from models.base_model import BaseModel
 from models import base_model
 
+
 class TestBaseModelDocs(unittest.TestCase):
     """
     Implements tests for the base class
@@ -23,28 +24,34 @@ class TestBaseModelDocs(unittest.TestCase):
 
     def test_base_model(self):
         """ checks if the base_model file conforms to pep8 style """
-        style =pycodestyle.Checker("models/base_model.py", show_source = True)
+        style = pycodestyle.Checker("models/base_model.py", show_source=True)
         results = style.check_all()
         self.assertEqual(results, 0, "Found PEP 8 error and Warnings")
 
     def test_base_model_test(self):
         """ Tests this file for PEP8 errors"""
 
-        style = pycodestyle.Checker("tests/test_models/test_base_model.py", show_source = True)
+        style = pycodestyle.Checker("tests/test_models/test_base_model.py",
+                                    show_source=True)
         results = style.check_all()
         self.assertEqual(results, 0, "Found PEP 8 errors & Warnings")
 
     def test_module_doc_string(self):
         """ Checks if the doc string is present"""
 
-        self.assertIsNot(base_model.__doc__, None, "base_model.py needs documentation")
-        self.assertTrue(len(base_model.__doc__) >= 1, "base_model.py need doc string")
+        self.assertIsNot(base_model.__doc__, None,
+                         "base_model.py needs documentation")
+        self.assertTrue(len(base_model.__doc__) >= 1,
+                        "base_model.py need doc string")
 
     def test_class_doc_string(self):
         """ Tests if the class doc string exists"""
 
-        self.assertIsNot(BaseModel.__doc__, None, "BaseModel class needs doc str")
-        self.assertTrue(len(BaseModel.__doc__) >= 1, "BaseModel class needs doc str")
+        self.assertIsNot(BaseModel.__doc__, None,
+                         "BaseModel class needs doc str")
+        self.assertTrue(len(BaseModel.__doc__) >= 1,
+                        "BaseModel class needs doc str")
+
 
 class TestBaseModel(unittest.TestCase):
     """

@@ -87,11 +87,11 @@ class BaseModel(object):
             dictionary["__class__"] = self.__class__.__name__
             dictionary["id"] = str(dictionary["id"])
             if isinstance(dictionary["created_at"], datetime.datetime):
-                created_at = dictionary["created_at"].strftime("%Y-%m-%dT%H:%M:%S.%f")
-                dictionary["created_at"] = created_at
+                cre = dictionary["created_at"].strftime("%Y-%m-%dT%H:%M:%S.%f")
+                dictionary["created_at"] = cre
             if isinstance(dictionary["updated_at"], datetime.datetime):
-                updated_at = dictionary["updated_at"].strftime("%Y-%m-%dT%H:%M:%S.%f")
-                dictionary["updated_at"] = updated_at
+                upd = dictionary["updated_at"].strftime("%Y-%m-%dT%H:%M:%S.%f")
+                dictionary["updated_at"] = upd
 
         return dictionary
 
