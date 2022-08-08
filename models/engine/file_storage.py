@@ -30,7 +30,7 @@ class FileStorage:
             deserializes the JSON file to __objects
     """
 
-    __file_path = "file.json"
+    __file_path = ""
     __objects = {}
 
     def all(self):
@@ -61,3 +61,4 @@ class FileStorage:
                     FileStorage.__objects = json.load(json_file)
             except FileNotFoundError as err:
                 print(err)
+                pass
