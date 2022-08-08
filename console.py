@@ -26,7 +26,7 @@ from models.state import State
 classes = {"BaseModel": BaseModel, "User": User,
            "City": City, "Place": Place,
            "Amenity": Amenity, "Review": Review,
-           "State", State}
+           "State": State}
 
 class HBNBCommand(cmd.Cmd):
     """

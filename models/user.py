@@ -20,26 +20,17 @@ class User(BaseModel):
             first name of the user
         last_name: str
             last name of the user
+
+        Methods
+        -------
+        to_dict(self)
+            Overrides Base Class to_dict
     """
 
     email = ""
     password = ""
     first_name = ""
     last_name = ""
-
-    def __init__(self, *args, **kwargs):
-        """
-        Initialize Super class and current class
-
-        Parameters
-        ----------
-        args: list
-            List of arguments
-        kwargs: dict
-            Dict of args
-        """
-
-        super().__init__(kwargs)
 
     def to_dict(self):
         """
