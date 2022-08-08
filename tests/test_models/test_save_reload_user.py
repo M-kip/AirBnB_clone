@@ -27,3 +27,6 @@ my_user2.email = "airbnb@mail.com"
 my_user2.password = "root"
 my_user2.save()
 print(my_user2)
+
+if __name__ == "__main__":
+    unittest.main()
