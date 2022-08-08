@@ -82,7 +82,7 @@ class HBNBCommand(cmd.Cmd):
             print(my_model.id)
 
     def do_show(self, arg):
-        """ Prints and instance based on the id and class name"""
+        """ Prints instance based on the id and class name"""
         
         objs = storage.all()
         args = arg.split()
