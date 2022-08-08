@@ -145,6 +145,34 @@ class HBNBCommand(cmd.Cmd):
                 lst.append(objs[key])
             print(lst)
 
+    def default(self, line):
+        """ Implements unrecognized commands"""
+
+        if "()" in line:
+            class_ , command = line.split(".")
+            try:
+                if command == "count()":
+                    num = self.count(class_)
+                    print(num)
+            except NameError as err:
+                print(err)
+    def count(self, arg):
+        """ Counts the number of instances of a class """
+
+        objs = storage.all()
+        lst = []
+
+        if arg:
+            if arg not in classes.keys():
+                print("** class doesn't exist **")
+                return
+            else:
+                for key  in objs.keys():
+                    class_, id_ = key.split(".")
+                    if class_ == arg:
+                        lst.append(objs[key])
+                return len(lst)
+
     def do_update(self, line):
         """Updates an instance by adding or updating attribute.
         """
