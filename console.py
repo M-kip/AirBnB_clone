@@ -15,10 +15,18 @@ import inspect
 from models import storage
 from models.base_model import BaseModel
 from models.user import User
+from models.city import City
+from models.place import Place
+from models.amenity import Amenity
+from models.review import Review
+from models.state import State
 
 
 # TODO checks if instance of the same class exists in storage
-classes = {"BaseModel": BaseModel, "User": User}
+classes = {"BaseModel": BaseModel, "User": User,
+           "City": City, "Place": Place,
+           "Amenity": Amenity, "Review": Review,
+           "State", State}
 
 class HBNBCommand(cmd.Cmd):
     """
