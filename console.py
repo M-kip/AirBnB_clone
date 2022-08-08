@@ -13,8 +13,13 @@ import os
 import models
 import inspect
 from models import storage
+from models.base_model import BaseModel
+from models.user import User
+
 
 # TODO checks if instance of the same class exists in storage
+classes = {"BaseModel": BaseModel, "User": User}
+
 class HBNBCommand(cmd.Cmd):
     """
        Creates the command line interface
@@ -58,9 +63,11 @@ class HBNBCommand(cmd.Cmd):
         """
         if not arg:
             print("** class name missing **")
+            return
 
-        elif not arg in inspect.getmembers(models):
-            print("** class doesn't exists **")
+        if  arg not in classes.keys():
+            print("** class doesn't exist **")
+            return
         else:
             my_model = models.base_model.BaseModel()
             my_model.save()
@@ -73,41 +80,62 @@ class HBNBCommand(cmd.Cmd):
         args = arg.split()
         if len(args) < 1:
             print("** class name missing **")
+            return
         elif len(args) == 1:
             print("** instance id is missing **")
-
-        if not args[0] in inspect.getmembers(models):
-            print("** class doesn't exists **")
+            return
+        if args[0] not in classes.keys():
+            print("** class doesn't exist **")
+            return
+        key = args[0] + "." + args[1]
+        if key in objs.keys():
+            print(objs[key])
         else:
-            if not args[1] in objs.keys():
-                print("** no instance found **")
+            print("** no instance found **")
 
     def do_destory(self, arg):
-        """ destorys an instance object
         """
-        if not args:
+        destorys an instance based on class and id
+        """
+
+        if not arg:
             print("** class name is missing **")
+            return
         args = arg.split()
         class_ = args[0]
         id = args[1]
         objs = storage.all()
-
+        key = class_ + "." + id
         if not id:
             print("** instance id is missing **")
-        if not class_ in inspect.getmembers(models):
-            print("** class doesn't exists **")
+            return
+        if class_ not in classes.keys():
+            print("** class doesn't exist **")
+            return
+        if key not in objs.keys():
+            print("** no instance found **")
         else:
-            if not id in objs.keys():
-                print("** no instance found **")
-            else:
-                del objs[id]
-    def do_all(self, args):
+            del objs[key]
+    def do_all(self, arg):
         """Prints all the instances of arg
         """
-
         objs = storage.all()
-        print(objs)
-         
+        lst = []
+
+        if arg:
+            if arg not in classes.keys():
+                print("** class doesn't exist **")
+                return
+            else:
+                for key  in objs.keys():
+                    class_, id_ = key.split(".")
+                    if class_ == arg:
+                        lst.append(objs[key])
+                print(lst)
+        else:
+            for key in objs.keys():
+                lst.append(objs[key])
+            print(lst)
 
     def do_update(self, line):
         """Updates an instance by adding or updating attribute.
