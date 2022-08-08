@@ -40,7 +40,6 @@ class User(BaseModel):
         """
 
         super().__init__(kwargs)
-        storage.new(self.to_dict)
 
     def to_dict(self):
         """
@@ -49,9 +48,9 @@ class User(BaseModel):
         """
 
         dictionary = super().to_dict()
-        dictionary[User.email] = User.email
-        dictionary[User.password] = User.password
-        dictionary[User.first_name] = User.first_name
-        dictionary[User.last_name] = User.last_name
+        dictionary["email"] = User.email
+        dictionary["password"] = User.password
+        dictionary["first_name"] = User.first_name
+        dictionary["last_name"] = User.last_name
 
         return dictionary
