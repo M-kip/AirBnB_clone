@@ -40,6 +40,7 @@ class BaseModel(object):
 
     email = ""
     my_number = ""
+    name = ""
 
     def __init__(self, *args, **kwargs):
         """
@@ -53,7 +54,7 @@ class BaseModel(object):
         if kwargs:
             for key, value in kwargs.items():
                 if (key == "name"):
-                    self.name = value
+                    self.__clas__name = value
                 elif (key == "my_number"):
                     self.my_number = value
                 elif (key == "created_at"):
