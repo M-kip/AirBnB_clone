@@ -4,7 +4,7 @@ This module implements the user class
 """
 
 from models.base_model import BaseModel
-
+from models import storage
 
 class User(BaseModel):
     """
@@ -32,6 +32,11 @@ class User(BaseModel):
     first_name = ""
     last_name = ""
 
+    def __init__(self, *args, **kwargs):
+        """ Initialize instance and class variables"""
+
+        super().__init__(*args, **kwargs)
+
     def to_dict(self):
         """
         Overrides the base class to_dict method and
@@ -39,6 +44,7 @@ class User(BaseModel):
         """
 
         dictionary = super().to_dict()
+        print(dictionary)
         dictionary["email"] = self.__class__.email
         dictionary["password"] = self.__class__.password
         dictionary["first_name"] = self.__class__.first_name

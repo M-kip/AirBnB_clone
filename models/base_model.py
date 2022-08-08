@@ -81,14 +81,16 @@ class BaseModel(object):
         """
         Return a dictionary containing all instance variables & class name
         """
-        dictionary = self.__dict__.copy()
+        dictionary = self.__dict__
         if dictionary:
             dictionary["__class__"] = self.__class__.__name__
             dictionary["id"] = str(dictionary["id"])
-            created_at = dictionary["created_at"].strftime("%Y-%m-%dT%H:%M:%S.%f")
-            dictionary["created_at"] = created_at
-            updated_at = dictionary["updated_at"].strftime("%Y-%m-%dT%H:%M:%S.%f")
-            dictionary["updated_at"] = updated_at
+            if  isinstance(dictionary["created_at"], datetime.datetime):
+                created_at = dictionary["created_at"].strftime("%Y-%m-%dT%H:%M:%S.%f")
+                dictionary["created_at"] = created_at
+            if isinstance(dictionary["updated_at"], datetime.datetime):
+                updated_at = dictionary["updated_at"].strftime("%Y-%m-%dT%H:%M:%S.%f")
+                dictionary["updated_at"] = updated_at
 
         return dictionary
 
@@ -96,5 +98,5 @@ class BaseModel(object):
         """ Updates the updated_at variable with the current time
         """
 
+        self.updated_at = datetime.datetime.now().isoformat()
         storage.save()
-        self.updated_at = datetime.datetime.now()

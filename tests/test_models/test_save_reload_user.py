@@ -23,6 +23,7 @@ print(my_user)
 print("------ Create a new user 2 ---------")
 my_user2 = User()
 my_user2.first_name = "John"
+my_user2.last_name = "Doe"
 my_user2.email = "airbnb@mail.com"
 my_user2.password = "root"
 my_user2.save()
