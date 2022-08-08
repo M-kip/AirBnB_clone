@@ -45,7 +45,6 @@ class User(BaseModel):
         """
 
         dictionary = super().to_dict()
-        print(dictionary)
         dictionary["email"] = self.__class__.email
         dictionary["password"] = self.__class__.password
         dictionary["first_name"] = self.__class__.first_name
