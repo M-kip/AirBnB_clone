@@ -154,6 +154,8 @@ class HBNBCommand(cmd.Cmd):
                 if command == "count()":
                     num = self.count(class_)
                     print(num)
+                if command == "all()":
+                    self.do_all(class_)
             except NameError as err:
                 print(err)
     def count(self, arg):
