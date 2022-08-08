@@ -38,6 +38,10 @@ class BaseModel(object):
 
 """
 
+    email = ""
+    my_number = ""
+    name = ""
+
     def __init__(self, *args, **kwargs):
         """
         Parameters
@@ -50,23 +54,20 @@ class BaseModel(object):
         if kwargs:
             for key, value in kwargs.items():
                 if (key == "name"):
-                    self.name = value
+                    self.__clas__name = value
                 elif (key == "my_number"):
                     self.my_number = value
                 elif (key == "created_at"):
-                    self.created_at = datetime.datetime(value)
+                    self.created_at = datetime.datetime.fromisoformat(value)
                 elif (key == "updated_at"):
-                    self.updated_at = datetime.datetime(value)
+                    self.updated_at = datetime.datetime.fromisoformat(value)
                 elif (key == "id"):
-                    self.id = value
+                    self.id = uuid.UUID(value)
         else:
             self.id = uuid.uuid4()
             self.created_at = datetime.datetime.now()
             self.updated_at = datetime.datetime.now()
-            self.name = None
-            self.my_number = None
-
-        storage.new(self.to_dict())
+            storage.new(self.to_dict())
 
     def __str__(self):
         """
@@ -75,24 +76,28 @@ class BaseModel(object):
         self: instance
            The current instance
         """
-        return f"{self.__class__} ({self.id}) {self.__dict__}"
+        return f"[{self.__class__.__name__}] ({self.id}) {self.__dict__}"
 
     def to_dict(self):
         """
         Return a dictionary containing all instance variables & class name
         """
         dictionary = self.__dict__
-        dictionary[self.__class__] = self.__class__
-        created_at = dictionary["created_at"].strftime("%Y-%m-%dT%H:%M:%S.%f")
-        updated_at = dictionary["updated_at"].strftime("%Y-%m-%dT%H:%M:%S.%f")
-        dictionary["created_at"] = created_at
-        dictionary["updated_at"] = updated_at
+        if dictionary:
+            dictionary["__class__"] = self.__class__.__name__
+            dictionary["id"] = str(dictionary["id"])
+            if isinstance(dictionary["created_at"], datetime.datetime):
+                cre = dictionary["created_at"].strftime("%Y-%m-%dT%H:%M:%S.%f")
+                dictionary["created_at"] = cre
+            if isinstance(dictionary["updated_at"], datetime.datetime):
+                upd = dictionary["updated_at"].strftime("%Y-%m-%dT%H:%M:%S.%f")
+                dictionary["updated_at"] = upd
 
         return dictionary
 
     def save(self):
         """ Updates the updated_at variable with the current time
         """
-        
+
+        self.updated_at = datetime.datetime.now().isoformat()
         storage.save()
-        self.updated_at = datetime.datetime.now()

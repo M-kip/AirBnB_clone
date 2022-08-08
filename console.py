@@ -13,8 +13,21 @@ import os
 import models
 import inspect
 from models import storage
+from models.base_model import BaseModel
+from models.user import User
+from models.city import City
+from models.place import Place
+from models.amenity import Amenity
+from models.review import Review
+from models.state import State
+
 
 # TODO checks if instance of the same class exists in storage
+classes = {"BaseModel": BaseModel, "User": User,
+           "City": City, "Place": Place,
+           "Amenity": Amenity, "Review": Review,
+           "State": State}
+
 class HBNBCommand(cmd.Cmd):
     """
        Creates the command line interface
@@ -58,56 +71,113 @@ class HBNBCommand(cmd.Cmd):
         """
         if not arg:
             print("** class name missing **")
+            return
 
-        elif not arg in inspect.getmembers(models):
-            print("** class doesn't exists **")
+        if  arg not in classes.keys():
+            print("** class doesn't exist **")
+            return
         else:
-            my_model = models.base_model.BaseModel()
+            my_model = classes[arg]()
             my_model.save()
             print(my_model.id)
 
     def do_show(self, arg):
-        """ Prints and instance based on the id and class name"""
+        """ Prints instance based on the id and class name"""
         
         objs = storage.all()
         args = arg.split()
         if len(args) < 1:
             print("** class name missing **")
+            return
         elif len(args) == 1:
             print("** instance id is missing **")
-
-        if not args[0] in inspect.getmembers(models):
-            print("** class doesn't exists **")
+            return
+        if args[0] not in classes.keys():
+            print("** class doesn't exist **")
+            return
+        key = args[0] + "." + args[1]
+        if key in objs.keys():
+            print(objs[key])
         else:
-            if not args[1] in objs.keys():
-                print("** no instance found **")
+            print("** no instance found **")
 
     def do_destory(self, arg):
-        """ destorys an instance object
         """
-        if not args:
+        destorys an instance based on class and id
+        """
+
+        if not arg:
             print("** class name is missing **")
+            return
         args = arg.split()
         class_ = args[0]
-        id = args[1]
+        id_ = args[1]
         objs = storage.all()
-
-        if not id:
+        key = class_ + "." + id_
+        if not id_:
             print("** instance id is missing **")
-        if not class_ in inspect.getmembers(models):
-            print("** class doesn't exists **")
+            return
+        if class_ not in classes.keys():
+            print("** class doesn't exist **")
+            return
+        if key not in objs.keys():
+            print("** no instance found **")
         else:
-            if not id in objs.keys():
-                print("** no instance found **")
-            else:
-                del objs[id]
-    def do_all(self, args):
+            del objs[key]
+    def do_all(self, arg):
         """Prints all the instances of arg
         """
+        objs = storage.all()
+        lst = []
+
+        if arg:
+            if arg not in classes.keys():
+                print("** class doesn't exist **")
+                return
+            else:
+                for key  in objs.keys():
+                    class_, id_ = key.split(".")
+                    if class_ == arg:
+                        lst.append(objs[key])
+                print(lst)
+        else:
+            for key in objs.keys():
+                lst.append(objs[key])
+            print(lst)
+
+    def default(self, line):
+        """ Implements unrecognized commands"""
+
+        if "()" in line:
+            class_ , command = line.split(".")
+            try:
+                if command == "count()":
+                    num = self.count(class_)
+                    print(num)
+                if command == "all()":
+                    self.do_all(class_)
+                if "show" in command:
+                    temp = command.split("\"")
+                    key = class_ + " " + temp[1]
+                    self.do_show(key)
+            except NameError as err:
+                print(err)
+    def count(self, arg):
+        """ Counts the number of instances of a class """
 
         objs = storage.all()
-        print(objs)
-         
+        lst = []
+
+        if arg:
+            if arg not in classes.keys():
+                print("** class doesn't exist **")
+                return
+            else:
+                for key  in objs.keys():
+                    class_, id_ = key.split(".")
+                    if class_ == arg:
+                        lst.append(objs[key])
+                return len(lst)
 
     def do_update(self, line):
         """Updates an instance by adding or updating attribute.
