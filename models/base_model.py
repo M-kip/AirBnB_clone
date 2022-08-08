@@ -86,7 +86,7 @@ class BaseModel(object):
         if dictionary:
             dictionary["__class__"] = self.__class__.__name__
             dictionary["id"] = str(dictionary["id"])
-            if  isinstance(dictionary["created_at"], datetime.datetime):
+            if isinstance(dictionary["created_at"], datetime.datetime):
                 created_at = dictionary["created_at"].strftime("%Y-%m-%dT%H:%M:%S.%f")
                 dictionary["created_at"] = created_at
             if isinstance(dictionary["updated_at"], datetime.datetime):

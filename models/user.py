@@ -6,6 +6,7 @@ This module implements the user class
 from models.base_model import BaseModel
 from models import storage
 
+
 class User(BaseModel):
     """
         User class inherits from BaseModel class
