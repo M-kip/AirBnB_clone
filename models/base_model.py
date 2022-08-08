@@ -75,7 +75,7 @@ class BaseModel(object):
         self: instance
            The current instance
         """
-        return f"[{self.__class__}] ({self.id}) {self.__dict__}"
+        return f"[{self.__class__.__name__}] ({self.id}) {self.__dict__}"
 
     def to_dict(self):
         """

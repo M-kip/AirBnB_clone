@@ -39,9 +39,9 @@ class User(BaseModel):
         """
 
         dictionary = super().to_dict()
-        dictionary["email"] = User.email
-        dictionary["password"] = User.password
-        dictionary["first_name"] = User.first_name
-        dictionary["last_name"] = User.last_name
+        dictionary["email"] = self.__class__.email
+        dictionary["password"] = self.__class__.password
+        dictionary["first_name"] = self.__class__.first_name
+        dictionary["last_name"] = self.__class__.last_name
 
         return dictionary
