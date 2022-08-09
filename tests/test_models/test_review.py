@@ -2,51 +2,107 @@
 """Unittest module for the Review Class."""
 
 import unittest
-from datetime import datetime
-import time
+import pycodestyle
 from models.review import Review
-import re
-import json
-from models.engine.file_storage import FileStorage
-import os
-from models import storage
+from models import review
 from models.base_model import BaseModel
+
+
+class TestReviewDocs(unittest.TestCase):
+    """
+    Runs Doc string and pycodestyle checks
+
+    This class checks for proper code documentation
+    if the class/ module contains __doc__ strings
+
+    Methods
+    -------
+    test_review_pep8(self)
+        Run checks with pycodestyle
+    test_review_module_doc_string(self)
+        Checks for module doc string
+    test_review_class_doc_string(self)
+        Checks for class doc strings
+    test_review_test_pep8(self)
+        Tests this script for pep compliance
+    """
+
+    def test_review_pep8(self):
+        """
+        Checks for PEP 8 compliance
+        """
+        style = pycodestyle.Checker("models/review.py", show_source=True)
+        results = style.check_all()
+        self.assertEqual(results, 0, "Found PEP 8 Warnings")
+
+    def test_review_test_pep8(self):
+        """
+        Checks for PEP 8 compliance
+        """
+        style = pycodestyle.Checker("tests/test_models/test_review.py",
+                                    show_source=True)
+        results = style.check_all()
+        self.assertEqual(results, 0, "Found PEP 8 Warnings")
+
+    def test_module_doc_string(self):
+        """ Checks if the doc string is present"""
+
+        self.assertIsNot(review.__doc__, None, "review.py needs documentation")
+        self.assertTrue(len(review.__doc__) >= 1, "review.py need doc string")
+
+    def test_class_doc_string(self):
+        """ Tests if the class doc string exists"""
+
+        self.assertIsNot(Review.__doc__, None, "Review class needs doc str")
+        self.assertTrue(len(Review.__doc__) >= 1,
+                        "Review class needs doc str")
 
 
 class TestReview(unittest.TestCase):
 
-    """Test Cases for the Review class."""
+    """
+    Test Cases for the Review class.
 
-    def setUp(self):
-        """Sets up test methods."""
-        pass
+    Methods
+    -------
+    test_review_instantiation(self)
+        Tests if the class can be instantiated
+    test_review_variables(self)
+        test for variables correctness
+    """
 
-    def tearDown(self):
-        """Tears down test methods."""
-        self.resetStorage()
-        pass
+    def test_review_instantiation(self):
+        """
+        Tests instantiation of Review class.
 
-    def resetStorage(self):
-        """Resets FileStorage data."""
-        FileStorage._FileStorage__objects = {}
-        if os.path.isfile(FileStorage._FileStorage__file_path):
-            os.remove(FileStorage._FileStorage__file_path)
+        Raises
+        ------
+        NotInstanceError
+            if not an instance of Review
+        NotTrueError
+            if the instance is not a subclass of BaseModel
+        """
 
-    def test_8_instantiation(self):
-        """Tests instantiation of Review class."""
+        my_review = Review()
+        self.assertIsInstance(my_review, Review)
+        self.assertTrue(issubclass(type(my_review), BaseModel))
 
-        b = Review()
-        self.assertEqual(str(type(b)), "<class 'models.review.Review'>")
-        self.assertIsInstance(b, Review)
-        self.assertTrue(issubclass(type(b), BaseModel))
+    def test_review_attributes(self):
+        """
+        Tests the attributes of Review class.
 
-    def test_8_attributes(self):
-        """Tests the attributes of Review class."""
-        attributes = storage.attributes()["Review"]
-        o = Review()
+        Raises
+        ------
+        NotTrueError
+            if instance doesn't contain attribute
+        NotEqualError
+            if instance attributes value don't match with test value'
+        """
+        my_review = Review()
+        attributes = my_review.to_dict()
         for k, v in attributes.items():
-            self.assertTrue(hasattr(o, k))
-            self.assertEqual(type(getattr(o, k, None)), v)
+            self.assertTrue(hasattr(my_review, k))
+            self.assertEqual(attributes[k], v)
 
 
 if __name__ == "__main__":

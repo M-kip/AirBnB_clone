@@ -9,6 +9,8 @@ Classes
 -------
 TestUserDocs:
     Implements doc and pep compliance checks
+TestUserInitialization:
+    Tests variables and initialization
 """
 
 import unittest
@@ -63,9 +65,72 @@ class TestUserDocs(unittest.TestCase):
     def test_class_doc_string(self):
         """ Tests if the class doc string exists"""
 
-        self.assertIsNot(User.__doc__, None, "BaseModel class needs doc str")
+        self.assertIsNot(User.__doc__, None, "User class needs doc str")
         self.assertTrue(len(User.__doc__) >= 1,
-                        "BaseModel class needs doc str")
+                        "User class needs doc str")
+
+
+class TestUserInitialization(unittest.TestCase):
+    """
+    Tests the user class for initialization and variables issues
+
+    This class Implements methods for checking dictionary initialization
+    and the normal way the class also offers methods to check variable
+    values and types
+
+    Methods
+    -------
+    test_UserInitialization(self)
+        Test if user can be initialized
+    test_user_initialization_kwargs(self)
+        Test if class can be created form kwargs
+    test_user_attributes(self)
+        Test the class attributes if working correctly
+    """
+
+    def test_UserInitialization(self):
+        """
+        Initialize User class
+        """
+
+        my_user = User()
+        my_user.first_name = "Betty"
+        my_user.last_name = "bar"
+        my_user.email = "airbnb@mail.com"
+        my_user.password = "root"
+        my_user.save()
+
+        self.assertIsInstance(my_user, User)
+
+    def test_user_initialization_kwargs(self):
+        """
+        Test if the class can be initialized from a dict
+        """
+
+        my_user2 = User()
+        my_user2.first_name = "John"
+        my_user2.last_name = "Doe"
+        my_user2.email = "airbnb@mail.com"
+        my_user2.password = "root"
+        my_user2.save()
+        keywords = my_user2.to_dict()
+
+        my_user3 = User(**keywords)
+        self.assertEqual(my_user2.id, str(my_user3.id))
+
+    def test_user_attributes(self):
+        """
+        Tests if the class attributes are present and workin
+        """
+        my_user = User()
+        my_user.first_name = "Betty"
+        my_user.last_name = "bar"
+        my_user.email = "airbnb@mail.com"
+        my_user.password = "root"
+        attrs = my_user.to_dict()
+        for key, value in attrs.items():
+            self.assertTrue(hasattr(my_user, key))
+            self.assertEqual(attrs[key], value)
 
 
 if __name__ == "__main__":
