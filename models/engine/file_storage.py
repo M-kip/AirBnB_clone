@@ -5,6 +5,17 @@
     to and from json format
 """
 import json
+from models.amenity import Amenity
+from models.base_model import BaseModel
+from models.city import City
+from models.place import Place
+from models.review import Review
+from models.state import State
+from models.user import User
+
+objs = {"Amenity": Amenity, "BaseModel": BaseModel,
+        "City": City, "Place": Place, "Review": Review,
+        "State": State, "User": User}
 
 
 class FileStorage:
@@ -63,7 +74,7 @@ class FileStorage:
         """
 
         json_objects = {}
-        for key in self.__class__.objects.keys():
+        for key in self.__class__.__objects.keys():
             json_objects[key] = self.__class__.__objects[key].to_dict()
         if FileStorage.__file_path:
             try:
@@ -76,16 +87,7 @@ class FileStorage:
         """
         Deserializes JSON file back to obj
         """
-        from models.amenity import Amenity
-        from models.base_model import BaseModel
-        from models.city import City
-        from models.place import Place
-        from models.review import Review
-        from models.state import State
-        from models.user import User
-        objs = {"Amenity": Amenity, "BaseModel": BaseModel,
-                "City": City, "Place": Place, "Review": Review,
-                "State": State, "User": User}
+
         if FileStorage.__file_path:
             try:
                 with open(FileStorage.__file_path, "r") as json_file:
