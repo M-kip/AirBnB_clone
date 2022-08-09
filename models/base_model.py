@@ -54,7 +54,7 @@ class BaseModel(object):
         if kwargs:
             for key, value in kwargs.items():
                 if (key == "name"):
-                    self.__clas__name = value
+                    self.__class__.name = value
                 elif (key == "my_number"):
                     self.my_number = value
                 elif (key == "created_at"):
