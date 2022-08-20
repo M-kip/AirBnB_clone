@@ -1,0 +1,8 @@
+/* comon css holds styling for the body */
+body {
+    padding: 0 0;
+    margin: 0 0;
+    color: #484848;
+    font-size: 14px;
+    font-family: Circular,"Helvetica Neue",Helvetica,Arial,sans-serif;
+}
