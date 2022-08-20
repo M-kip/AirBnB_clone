@@ -4,6 +4,9 @@ footer {
     width: 100%;
     position: fixed;
     bottom: 0;
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+    border-bottom-color: #CCCCCC;
 }
 
 footer p {
