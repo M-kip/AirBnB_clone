@@ -42,14 +42,12 @@ section.filters  div.amenities {
 section.filters div > h3 {
     font-weight: 600;
     text-align: center;
-    margin: auto;
 }
 
 section.filters div > h4 {
     font-weight: 400;
     font-size: 14px;
     text-align: center;
-    margin: auto;
 }
 
 section.filters button:hover {
