@@ -28,6 +28,7 @@ section.filters  div.locations {
     border-right-color: #DDDDDD;
     border-right-width: 1px;
     display: inline-block;
+    position: relative;
 }
 
 section.filters  div.amenities {
@@ -35,6 +36,7 @@ section.filters  div.amenities {
     height: 100%;
     border-right-color: #DDDDDD;
     display: inline-block;
+    position: relative;
 }
 
 section.filters div > h3 {
@@ -63,5 +65,4 @@ section.filters div ul.popover {
 div.amenities:hover ul.popover,
 div.locations:hover ul.popover {
     display: block;
-    position: relative;
 }
