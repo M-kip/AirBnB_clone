@@ -3,7 +3,7 @@
     width: 100%;
     border: 1px solid #DDDDDD;
     border-radius: 4px;
-    position: relative
+    position: relative;
 }
 
 section.filters button {
@@ -28,7 +28,6 @@ section.filters  div.locations {
     border-right-color: #DDDDDD;
     border-right-width: 1px;
     display: inline-block;
-    position: relative;
 }
 
 section.filters  div.amenities {
@@ -36,7 +35,6 @@ section.filters  div.amenities {
     height: 100%;
     border-right-color: #DDDDDD;
     display: inline-block;
-    position: relative;
 }
 
 section.filters div > h3 {
@@ -59,9 +57,11 @@ section.filters div ul.popover {
     position: absolute;
     width: 100%;
     border: 1px solid #DDDDDD;
+    z-index: 1;
 }
 
 div.amenities:hover ul.popover,
 div.locations:hover ul.popover {
-    display: block
+    display: block;
+    position: relative;
 }

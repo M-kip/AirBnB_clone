@@ -26,13 +26,13 @@ section.places article h1 {
     min-width: 60px;
     height: 60px;
     font-size: 30px;
-    text-align: center;
     margin: auto;
 }
 .price_by_night p {
     text-align: center;
     margin-left: auto;
     margin-right: auto;
+    margin-top: 15px;
 }
 .max_guest,
 .number_rooms,
